@@ -9,8 +9,8 @@ export const MODEL_DISPLAY_NAMES = {
 } as const;
 
 export const MODEL_ANTHROPIC_NAMES = {
-  [LLMModel.ANTHROPIC_CLAUDE_SONNET_4]: 'claude-3-5-sonnet-20241022',
-  [LLMModel.ANTHROPIC_CLAUDE_OPUS_4]: 'claude-3-opus-20240229',
+  [LLMModel.ANTHROPIC_CLAUDE_SONNET_4]: 'claude-sonnet-4-20250514',
+  [LLMModel.ANTHROPIC_CLAUDE_OPUS_4]: 'claude-opus-4-20250514',
 } as const;
 
 export const SUPPORTED_MODELS = [
