@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { startTask } from "@/utils/taskUtils";
 import { TaskList } from "@/components/tasks/TaskList";
-import { SUPPORTED_MODELS, DEFAULT_MODEL, LLMModel } from "@/constants/models";
+import { SUPPORTED_MODELS, DEFAULT_MODEL } from "@/constants/models";
 
 // Stock photo component for easy image switching
 interface StockPhotoProps {
@@ -38,7 +38,7 @@ const StockPhoto: React.FC<StockPhotoProps> = ({
 
 export default function Home() {
   const [input, setInput] = useState("");
-  const [selectedModel, setSelectedModel] = useState<LLMModel>(DEFAULT_MODEL);
+  const [selectedModel, setSelectedModel] = useState<string>(DEFAULT_MODEL);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [activePopoverIndex, setActivePopoverIndex] = useState<number | null>(
@@ -234,7 +234,7 @@ export default function Home() {
                   minLines={3}
                 />
                 <div className="mt-3">
-                  <Select value={selectedModel} onValueChange={(value) => setSelectedModel(value as LLMModel)}>
+                  <Select value={selectedModel} onValueChange={(value) => setSelectedModel(value)}>
                     <SelectTrigger className="w-auto">
                       <SelectValue placeholder="Select a model" />
                     </SelectTrigger>
@@ -288,7 +288,7 @@ export default function Home() {
                   minLines={3}
                 />
                 <div className="mt-3">
-                  <Select value={selectedModel} onValueChange={(value) => setSelectedModel(value as LLMModel)}>
+                  <Select value={selectedModel} onValueChange={(value) => setSelectedModel(value)}>
                     <SelectTrigger className="w-auto">
                       <SelectValue placeholder="Select a model" />
                     </SelectTrigger>

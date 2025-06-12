@@ -1,5 +1,5 @@
 import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Role, TaskPriority, TaskType, LLMModel } from '@prisma/client';
+import { Role, TaskPriority, TaskType } from '@prisma/client';
 
 export class CreateTaskDto {
   @IsNotEmpty()
@@ -24,5 +24,5 @@ export class CreateTaskDto {
 
   @IsOptional()
   @IsString()
-  model?: LLMModel;
+  model?: string;
 }

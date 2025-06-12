@@ -1,5 +1,4 @@
 import { Message, Task } from "@/types";
-import { LLMModel } from "@/constants/models";
 
 /**
  * Fetches messages for a specific task
@@ -65,7 +64,7 @@ export async function fetchTaskById(taskId: string): Promise<Task | null> {
  * @returns The task data or null if there was an error
  */
 
-export async function startTask(message: string, model: LLMModel): Promise<Task | null> {
+export async function startTask(message: string, model: string): Promise<Task | null> {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BYTEBOT_AGENT_BASE_URL}/tasks`,
