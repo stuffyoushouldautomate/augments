@@ -17,6 +17,7 @@ import {
   TaskStatus,
   TaskType,
   TaskPriority,
+  LLMModel,
 } from '@prisma/client';
 import { GuideTaskDto } from './dto/guide-task.dto';
 import { TasksGateway } from './tasks.gateway';
@@ -48,6 +49,7 @@ export class TasksService {
           priority: createTaskDto.priority || TaskPriority.MEDIUM,
           status: TaskStatus.PENDING,
           createdBy: createTaskDto.createdBy || Role.USER,
+          model: createTaskDto.model || LLMModel.ANTHROPIC_CLAUDE_SONNET_4,
           ...(createTaskDto.scheduledFor
             ? { scheduledFor: createTaskDto.scheduledFor }
             : {}),

@@ -1,0 +1,21 @@
+export enum LLMModel {
+  ANTHROPIC_CLAUDE_SONNET_4 = 'ANTHROPIC_CLAUDE_SONNET_4',
+  ANTHROPIC_CLAUDE_OPUS_4 = 'ANTHROPIC_CLAUDE_OPUS_4',
+}
+
+export const MODEL_DISPLAY_NAMES = {
+  [LLMModel.ANTHROPIC_CLAUDE_SONNET_4]: 'Claude Sonnet 4.0',
+  [LLMModel.ANTHROPIC_CLAUDE_OPUS_4]: 'Claude Opus 4.0',
+} as const;
+
+export const MODEL_ANTHROPIC_NAMES = {
+  [LLMModel.ANTHROPIC_CLAUDE_SONNET_4]: 'claude-3-5-sonnet-20241022',
+  [LLMModel.ANTHROPIC_CLAUDE_OPUS_4]: 'claude-3-opus-20240229',
+} as const;
+
+export const SUPPORTED_MODELS = [
+  LLMModel.ANTHROPIC_CLAUDE_SONNET_4,
+  LLMModel.ANTHROPIC_CLAUDE_OPUS_4,
+] as const;
+
+export const DEFAULT_MODEL = LLMModel.ANTHROPIC_CLAUDE_SONNET_4;

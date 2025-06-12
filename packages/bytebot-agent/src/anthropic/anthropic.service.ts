@@ -8,8 +8,9 @@ import {
   ToolUseContentBlock,
 } from '@bytebot/shared';
 import { AGENT_SYSTEM_PROMPT, DEFAULT_MODEL } from './anthropic.constants';
-import { Message, Role } from '@prisma/client';
+import { Message, Role, LLMModel } from '@prisma/client';
 import { anthropicTools } from './anthropic.tools';
+import { MODEL_ANTHROPIC_NAMES } from '../common/constants/models';
 
 @Injectable()
 export class AnthropicService {
@@ -34,12 +35,12 @@ export class AnthropicService {
    * Sends a message to Anthropic Claude and returns the response
    *
    * @param messages Array of message content blocks representing the conversation
-   * @param options Additional options for the API call
+   * @param selectedModel The LLM model to use for the request
    * @returns The AI response as an array of message content blocks
    */
-  async sendMessage(messages: Message[]): Promise<MessageContentBlock[]> {
+  async sendMessage(messages: Message[], selectedModel?: LLMModel): Promise<MessageContentBlock[]> {
     try {
-      const model = DEFAULT_MODEL;
+      const model = selectedModel ? MODEL_ANTHROPIC_NAMES[selectedModel] : DEFAULT_MODEL;
       const maxTokens = 8192;
       const system = AGENT_SYSTEM_PROMPT;
 
