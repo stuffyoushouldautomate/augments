@@ -493,7 +493,7 @@ export class AgentProcessor {
             coordinates,
             button,
             holdKeys,
-            numClicks,
+            numClicks: numClicks || 1,
           }),
         },
       );
