@@ -11,6 +11,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './auth';
+import { CustomAuthModule } from './auth/auth.module';
+import { SettingsModule } from './settings/settings.module';
 
 const authEnabled = process.env.AUTH_ENABLED === 'true';
 
@@ -19,6 +21,8 @@ const authEnabled = process.env.AUTH_ENABLED === 'true';
     ...(authEnabled ? [AuthModule.forRoot(auth, {
       disableTrustedOriginsCors: false,
     })] : []),
+    CustomAuthModule,
+    SettingsModule,
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot(),
     ConfigModule.forRoot({
