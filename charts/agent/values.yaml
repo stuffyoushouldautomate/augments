@@ -1,0 +1,13 @@
+image:
+  repository: ghcr.io/bytebot-ai/bytebot-agent
+  tag: edge
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 9991
+env:
+  DATABASE_URL: postgresql://postgres:postgres@bytebot-postgres:5432/bytebotdb
+  BYTEBOT_DESKTOP_BASE_URL: http://bytebot-desktop:9990
+  ANTHROPIC_API_KEY: ""
+  OPENAI_API_KEY: ""
+  GOOGLE_API_KEY: ""

@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
         - name: bytebot-ui
-          image: "{{ .Values.bytebotUI.image.repository }}:{{ .Values.bytebotUI.image.tag }}"
-          imagePullPolicy: {{ .Values.bytebotUI.image.pullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: NODE_ENV
-              value: "{{ .Values.bytebotUI.env.NODE_ENV }}"
+              value: "{{ .Values.env.NODE_ENV }}"
             - name: BYTEBOT_AGENT_BASE_URL
-              value: "{{ .Values.bytebotUI.env.BYTEBOT_AGENT_BASE_URL }}"
+              value: "{{ .Values.env.BYTEBOT_AGENT_BASE_URL }}"
             - name: BYTEBOT_DESKTOP_VNC_URL
-              value: "{{ .Values.bytebotUI.env.BYTEBOT_DESKTOP_VNC_URL }}"
+              value: "{{ .Values.env.BYTEBOT_DESKTOP_VNC_URL }}"
           ports:
             - containerPort: 9992

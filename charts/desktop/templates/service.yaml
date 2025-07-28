@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: bytebot-desktop
 spec:
-  type: {{ .Values.bytebotDesktop.service.type }}
+  type: {{ .Values.service.type }}
   selector:
     app: bytebot-desktop
   ports:
-    - port: {{ .Values.bytebotDesktop.service.port }}
+    - port: {{ .Values.service.port }}
       targetPort: 9990
       name: http

@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: bytebot-agent
 spec:
-  type: {{ .Values.bytebotAgent.service.type }}
+  type: {{ .Values.service.type }}
   selector:
     app: bytebot-agent
   ports:
-    - port: {{ .Values.bytebotAgent.service.port }}
+    - port: {{ .Values.service.port }}
       targetPort: 9991
       name: http

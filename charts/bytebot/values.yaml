@@ -1,0 +1,5 @@
+# Global overrides for the Bytebot stack
+agent: {}
+ui: {}
+desktop: {}
+database: {}

@@ -16,15 +16,15 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: "{{ .Values.postgres.image.repository }}:{{ .Values.postgres.image.tag }}"
-          imagePullPolicy: {{ .Values.postgres.image.pullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: POSTGRES_PASSWORD
-              value: "{{ .Values.postgres.env.POSTGRES_PASSWORD }}"
+              value: "{{ .Values.env.POSTGRES_PASSWORD }}"
             - name: POSTGRES_USER
-              value: "{{ .Values.postgres.env.POSTGRES_USER }}"
+              value: "{{ .Values.env.POSTGRES_USER }}"
             - name: POSTGRES_DB
-              value: "{{ .Values.postgres.env.POSTGRES_DB }}"
+              value: "{{ .Values.env.POSTGRES_DB }}"
           ports:
             - containerPort: 5432
           volumeMounts:

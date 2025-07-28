@@ -1,0 +1,6 @@
+apiVersion: v2
+name: agent
+version: 0.1.0
+description: Deploys the Bytebot agent service
+appVersion: "0.1.0"
+type: application

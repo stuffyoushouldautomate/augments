@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: bytebot-ui
 spec:
-  type: {{ .Values.bytebotUI.service.type }}
+  type: {{ .Values.service.type }}
   selector:
     app: bytebot-ui
   ports:
-    - port: {{ .Values.bytebotUI.service.port }}
+    - port: {{ .Values.service.port }}
       targetPort: 9992
       name: http

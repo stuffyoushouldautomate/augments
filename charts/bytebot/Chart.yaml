@@ -1,0 +1,20 @@
+apiVersion: v2
+name: bytebot
+version: 0.1.0
+description: Umbrella chart for deploying the Bytebot stack
+appVersion: "0.1.0"
+type: application
+
+dependencies:
+  - name: agent
+    version: ">=0.1.0"
+    repository: "file://../agent"
+  - name: ui
+    version: ">=0.1.0"
+    repository: "file://../ui"
+  - name: desktop
+    version: ">=0.1.0"
+    repository: "file://../desktop"
+  - name: database
+    version: ">=0.1.0"
+    repository: "file://../database"

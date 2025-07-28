@@ -17,11 +17,11 @@ spec:
       hostname: computer
       containers:
         - name: bytebot-desktop
-          image: "{{ .Values.bytebotDesktop.image.repository }}:{{ .Values.bytebotDesktop.image.tag }}"
-          imagePullPolicy: {{ .Values.bytebotDesktop.image.pullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: DISPLAY
-              value: "{{ .Values.bytebotDesktop.env.DISPLAY }}"
+              value: "{{ .Values.env.DISPLAY }}"
           ports:
             - containerPort: 9990
           securityContext:
