@@ -1,5 +1,5 @@
 {
-  "name": "bytebot-agent",
+  "name": "augments-agent",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@anthropic-ai/claude-code": "^1.0.90",
     "@anthropic-ai/sdk": "^0.39.0",
-    "@bytebot/shared": "../shared",
+    "@augments/shared": "../shared",
     "@google/genai": "^1.8.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",

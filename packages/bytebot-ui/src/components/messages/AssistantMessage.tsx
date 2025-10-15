@@ -2,7 +2,7 @@ import React from "react";
 import { GroupedMessages, TaskStatus } from "@/types";
 import { MessageAvatar } from "./MessageAvatar";
 import { MessageContent } from "./content/MessageContent";
-import { isToolResultContentBlock, isImageContentBlock } from "@bytebot/shared";
+import { isToolResultContentBlock, isImageContentBlock } from "@augments/shared";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -20,14 +20,14 @@ export function AssistantMessage({
   return (
     <div className={
       cn(
-        "bg-bytebot-bronze-light-3 flex items-start justify-start gap-2 px-4 py-3 border-x border-bytebot-bronze-light-7",
-        ![TaskStatus.RUNNING, TaskStatus.NEEDS_HELP].includes(taskStatus) && !group.take_over && "border-b border-bytebot-bronze-light-7 rounded-b-lg"
+        "bg-augments-gray-light-3 flex items-start justify-start gap-2 px-4 py-3 border-x border-augments-gray-light-7",
+        ![TaskStatus.RUNNING, TaskStatus.NEEDS_HELP].includes(taskStatus) && !group.take_over && "border-b border-augments-gray-light-7 rounded-b-lg"
       )}
     >
       <MessageAvatar role={group.role} />
 
       {group.take_over ? (
-        <div className="border-bytebot-bronze-light-a6 bg-bytebot-bronze-light-a1 w-full rounded-2xl border p-2">
+        <div className="border-augments-gray-light-a6 bg-augments-gray-light-a1 w-full rounded-2xl border p-2">
           <div className="flex items-center gap-2">
             <Image
               src="/indicators/indicator-pink.png"
@@ -35,11 +35,11 @@ export function AssistantMessage({
               width={15}
               height={15}
             />
-            <p className="text-bytebot-bronze-light-12 text-[12px] font-medium">
+            <p className="text-augments-gray-light-12 text-[12px] font-medium">
               You took control
             </p>
           </div>
-          <div className="bg-bytebot-bronze-light-2 mt-2 space-y-0.5 rounded-2xl p-1">
+          <div className="bg-augments-gray-light-2 mt-2 space-y-0.5 rounded-2xl p-1">
             {group.messages.map((message) => (
               <div
                 key={message.id}

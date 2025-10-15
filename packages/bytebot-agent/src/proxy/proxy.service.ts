@@ -16,7 +16,7 @@ import {
   isComputerToolUseContentBlock,
   isImageContentBlock,
   ThinkingContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 import { Message, Role } from '@prisma/client';
 import { proxyTools } from './proxy.tools';
 import {

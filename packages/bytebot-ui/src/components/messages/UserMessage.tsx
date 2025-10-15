@@ -6,7 +6,7 @@ import {
   isTextContentBlock,
   isToolResultContentBlock,
   isImageContentBlock,
-} from "@bytebot/shared";
+} from "@augments/shared";
 
 interface UserMessageProps {
   group: GroupedMessages;
@@ -16,8 +16,8 @@ interface UserMessageProps {
 export function UserMessage({ group, messageIdToIndex }: UserMessageProps) {
   if (messageIdToIndex[group.messages[0].id] === 0) {
     return (
-      <div className="sticky top-0 z-10 bg-bytebot-bronze-light-4">
-        <div className="border-bytebot-bronze-light-7 flex items-start justify-start gap-2 border px-4 py-3 bg-bytebot-bronze-light-2 rounded-t-lg">
+      <div className="sticky top-0 z-10 bg-augments-gray-light-4">
+        <div className="border-augments-gray-light-7 flex items-start justify-start gap-2 border px-4 py-3 bg-augments-gray-light-2 rounded-t-lg">
           <MessageAvatar role={group.role} />
 
           <div>
@@ -57,11 +57,11 @@ export function UserMessage({ group, messageIdToIndex }: UserMessageProps) {
                   }
                   return null;
                 })}
-                <div className="bg-bytebot-bronze-light-4 space-y-2 rounded-md px-2 py-1">
+                <div className="bg-augments-gray-light-4 space-y-2 rounded-md px-2 py-1">
                   {message.content.map((block, index) => (
                     <div
                       key={index}
-                      className="text-bytebot-bronze-light-12 text-sm"
+                      className="text-augments-gray-light-12 text-sm"
                     >
                       {isTextContentBlock(block) && (
                         <ReactMarkdown>{block.text}</ReactMarkdown>
@@ -78,7 +78,7 @@ export function UserMessage({ group, messageIdToIndex }: UserMessageProps) {
   }
 
   return (
-    <div className="bg-bytebot-bronze-light-3 flex items-start justify-end gap-2 px-4 py-3 border-x border-bytebot-bronze-light-7">
+    <div className="bg-augments-gray-light-3 flex items-start justify-end gap-2 px-4 py-3 border-x border-augments-gray-light-7">
       <div>
         {group.messages.map((message) => (
           <div

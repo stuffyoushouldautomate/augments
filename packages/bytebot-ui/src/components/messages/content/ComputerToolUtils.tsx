@@ -26,7 +26,7 @@ import {
   isApplicationToolUseBlock,
   isPasteTextToolUseBlock,
   isReadFileToolUseBlock,
-} from "@bytebot/shared";
+} from "@augments/shared";
 
 // Define the IconType for proper type checking
 export type IconType =

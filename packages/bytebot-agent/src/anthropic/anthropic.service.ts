@@ -10,7 +10,7 @@ import {
   RedactedThinkingContentBlock,
   isUserActionContentBlock,
   isComputerToolUseContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 import { DEFAULT_MODEL } from './anthropic.constants';
 import { Message, Role } from '@prisma/client';
 import { anthropicTools } from './anthropic.tools';

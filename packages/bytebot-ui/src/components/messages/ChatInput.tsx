@@ -28,7 +28,7 @@ export function ChatInput({
   onSend,
   onFileUpload,
   minLines = 1,
-  placeholder = "Give Bytebot a task to work on...",
+  placeholder = "Give augments a task to work on...",
 }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -202,8 +202,8 @@ export function ChatInput({
           value={input}
           onChange={(e) => onInputChange(e.target.value)}
           className={cn(
-            "placeholder:text-bytebot-bronze-light-10 w-full rounded-lg py-2 pr-16 pl-3 placeholder:text-[13px]",
-            "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-bytebot-bronze-light-7 flex min-w-0 border bg-transparent text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "placeholder:text-augments-gray-light-10 w-full rounded-lg py-2 pr-16 pl-3 placeholder:text-[13px]",
+            "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-augments-gray-light-7 flex min-w-0 border bg-transparent text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
             "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
             "resize-none overflow-hidden",
           )}
@@ -232,13 +232,13 @@ export function ChatInput({
           </Button>
           
           {isLoading ? (
-            <div className="border-bytebot-bronze-light-7 border-t-primary h-5 w-5 animate-spin rounded-full border-2" />
+            <div className="border-augments-gray-light-7 border-t-primary h-5 w-5 animate-spin rounded-full border-2" />
           ) : (
             <Button
               type="submit"
               variant="ghost"
               size="icon"
-              className="bg-bytebot-bronze-dark-7 hover:bg-bytebot-bronze-dark-6 h-6 w-6 cursor-pointer rounded-sm"
+              className="bg-augments-gray-dark-7 hover:bg-augments-gray-dark-6 h-6 w-6 cursor-pointer rounded-sm"
               disabled={isLoading}
             >
               <HugeiconsIcon

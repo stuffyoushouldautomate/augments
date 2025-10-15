@@ -7,7 +7,7 @@ import {
   isPressKeysToolUseBlock,
   isWaitToolUseBlock,
   isScrollToolUseBlock,
-} from "@bytebot/shared";
+} from "@augments/shared";
 import { getIcon, getLabel } from "./ComputerToolUtils";
 
 interface ComputerToolContentTakeOverProps {
@@ -15,7 +15,7 @@ interface ComputerToolContentTakeOverProps {
 }
 
 function ToolDetailsTakeOver({ block }: { block: ComputerToolUseContentBlock }) {
-  const baseClasses = "px-1 py-0.5 text-xs text-fuchsia-600 bg-bytebot-red-light-1 border border-bytebot-bronze-light-7 rounded-md";
+  const baseClasses = "px-1 py-0.5 text-xs text-fuchsia-600 bg-augments-red-light-1 border border-augments-gray-light-7 rounded-md";
 
   return (
     <>
@@ -90,7 +90,7 @@ export function ComputerToolContentTakeOver({ block }: ComputerToolContentTakeOv
             className="h-4 w-4 text-fuchsia-600"
           />
         </div>
-        <p className="text-xs text-bytebot-bronze-light-11">
+        <p className="text-xs text-augments-gray-light-11">
           {getLabel(block)}
         </p>
         <ToolDetailsTakeOver block={block} />

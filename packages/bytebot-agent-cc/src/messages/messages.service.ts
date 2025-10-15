@@ -11,7 +11,7 @@ import {
   isComputerToolUseContentBlock,
   isToolResultContentBlock,
   isUserActionContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 import { TasksGateway } from '../tasks/tasks.gateway';
 
 // Extended message type for processing

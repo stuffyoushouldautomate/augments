@@ -1,5 +1,5 @@
 import React from "react";
-import { ComputerToolUseContentBlock } from "@bytebot/shared";
+import { ComputerToolUseContentBlock } from "@augments/shared";
 import { ComputerToolContentTakeOver } from "./ComputerToolContentTakeOver";
 import { ComputerToolContentNormal } from "./ComputerToolContentNormal";
 

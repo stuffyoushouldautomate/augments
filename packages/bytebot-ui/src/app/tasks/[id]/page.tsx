@@ -171,7 +171,7 @@ export default function TaskPage() {
                     <Button variant="outline" size="icon">
                       <HugeiconsIcon
                         icon={MoreVerticalCircle01Icon}
-                        className="text-bytebot-bronze-light-11 h-5 w-5"
+                        className="text-augments-gray-light-11 h-5 w-5"
                       />
                     </Button>
                   </DropdownMenuTrigger>

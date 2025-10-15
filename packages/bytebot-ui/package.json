@@ -1,5 +1,5 @@
 {
-  "name": "bytebot-ui",
+  "name": "augments-ui",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
-    "@bytebot/shared": "../shared",
+    "@augments/shared": "../shared",
     "@hugeicons/core-free-icons": "^1.0.14",
     "@hugeicons/react": "^1.0.5",
     "@prisma/client": "^6.5.0",

@@ -11,7 +11,7 @@ import {
   isUserActionContentBlock,
   isComputerToolUseContentBlock,
   isImageContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 import { DEFAULT_MODEL } from './openai.constants';
 import { Message, Role } from '@prisma/client';
 import { openaiTools } from './openai.tools';

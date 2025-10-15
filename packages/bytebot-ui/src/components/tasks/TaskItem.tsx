@@ -25,7 +25,7 @@ interface StatusIconConfig {
 const STATUS_CONFIGS: Record<TaskStatus, StatusIconConfig> = {
   [TaskStatus.COMPLETED]: {
     icon: Tick02Icon,
-    color: "text-bytebot-green-8",
+    color: "text-augments-green-8",
   },
   [TaskStatus.RUNNING]: {
     useLoader: true,
@@ -39,7 +39,7 @@ const STATUS_CONFIGS: Record<TaskStatus, StatusIconConfig> = {
   },
   [TaskStatus.FAILED]: {
     icon: AlertCircleIcon,
-    color: "text-bytebot-red-light-9",
+    color: "text-augments-red-light-9",
   },
   [TaskStatus.NEEDS_REVIEW]: {
     icon: AlertCircleIcon,
@@ -47,7 +47,7 @@ const STATUS_CONFIGS: Record<TaskStatus, StatusIconConfig> = {
   },
   [TaskStatus.CANCELLED]: {
     icon: CancelCircleIcon,
-    color: "text-bytebot-bronze-light-10",
+    color: "text-augments-gray-light-10",
   },
 };
 
@@ -91,7 +91,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
   return (
     <Link href={`/tasks/${task.id}`} className="block">
-      <div className="bg-bytebot-bronze-light-2 border-bytebot-bronze-light-7 hover:bg-bytebot-bronze-light-3 flex min-h-24 items-start rounded-lg border p-5 transition-colors">
+      <div className="bg-augments-gray-light-2 border-augments-gray-light-7 hover:bg-augments-gray-light-3 flex min-h-24 items-start rounded-lg border p-5 transition-colors">
         <div className="mb-0.5 flex-1 space-y-2">
           <div className="flex items-center justify-start space-x-2">
             <StatusIcon status={task.status} />
@@ -100,13 +100,13 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             </div>
           </div>
           <div className="ml-7 flex items-center justify-start space-x-1.5 text-xs">
-            <span className="text-bytebot-bronze-light-10">
+            <span className="text-augments-gray-light-10">
               {formatDate(task.createdAt)}
             </span>
             {task.user && (
               <>
-                <span className="text-bytebot-bronze-light-10">•</span>
-                <span className="text-bytebot-bronze-light-10">
+                <span className="text-augments-gray-light-10">•</span>
+                <span className="text-augments-gray-light-10">
                   {task.user.name || task.user.email}
                 </span>
               </>

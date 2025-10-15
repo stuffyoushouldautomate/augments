@@ -9,14 +9,14 @@ interface MessageAvatarProps {
 }
 
 export function MessageAvatar({ role }: MessageAvatarProps) {
-  const baseClasses = "flex flex-shrink-0 items-center justify-center rounded-md border border-bytebot-bronze-light-7 bg-bytebot-bronze-light-1 h-[28px] w-[28px]";
+  const baseClasses = "flex flex-shrink-0 items-center justify-center rounded-md border border-augments-gray-light-7 bg-augments-gray-light-1 h-[28px] w-[28px]";
 
   if (role === Role.ASSISTANT) {
     return (
       <div className={baseClasses}>
         <Image
-          src="/bytebot_square_light.svg"
-          alt="Bytebot"
+          src="/augments_square.svg"
+          alt="augments"
           width={16}
           height={16}
           className="h-4 w-4"
@@ -29,7 +29,7 @@ export function MessageAvatar({ role }: MessageAvatarProps) {
     <div className={baseClasses}>
       <HugeiconsIcon
         icon={User03Icon}
-        className="text-bytebot-bronze-dark-9 w-4 h-4"
+        className="text-augments-gray-dark-9 w-4 h-4"
       />
     </div>
   );

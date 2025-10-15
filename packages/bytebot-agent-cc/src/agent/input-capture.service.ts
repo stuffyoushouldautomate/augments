@@ -15,7 +15,7 @@ import {
   ScreenshotToolUseBlock,
   ToolResultContentBlock,
   UserActionContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 import { Role } from '@prisma/client';
 import { MessagesService } from '../messages/messages.service';
 import { ConfigService } from '@nestjs/config';

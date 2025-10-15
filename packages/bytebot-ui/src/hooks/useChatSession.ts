@@ -9,7 +9,7 @@ import {
   resumeTask,
   cancelTask,
 } from "@/utils/taskUtils";
-import { MessageContentType } from "@bytebot/shared";
+import { MessageContentType } from "@augments/shared";
 import { useWebSocket } from "./useWebSocket";
 
 interface UseChatSessionProps {

@@ -20,7 +20,7 @@ import {
   PasteTextAction,
   WriteFileAction,
   ReadFileAction,
-} from '@bytebot/shared';
+} from '@augments/shared';
 
 @Injectable()
 export class ComputerUseService {

@@ -35,9 +35,9 @@ export function Header() {
     const baseClasses =
       "flex items-center gap-1.5 transition-colors px-3 py-1.5 rounded-lg";
     const activeClasses =
-      "bg-bytebot-bronze-light-a3 text-bytebot-bronze-light-12";
+      "bg-augments-gray-light-a3 text-augments-gray-light-12";
     const inactiveClasses =
-      "text-bytebot-bronze-dark-9 hover:bg-bytebot-bronze-light-a1 hover:text-bytebot-bronze-light-12";
+      "text-augments-gray-dark-9 hover:bg-augments-gray-light-a1 hover:text-augments-gray-light-12";
 
     return `${baseClasses} ${isActive(path) ? activeClasses : inactiveClasses}`;
   };
@@ -51,10 +51,10 @@ export function Header() {
             <Image
               src={
                 resolvedTheme === "dark"
-                  ? "/bytebot_transparent_logo_white.svg"
-                  : "/bytebot_transparent_logo_dark.svg"
+                  ? "/augments_logo_white.svg"
+                  : "/augments_logo_dark.svg"
               }
-              alt="Bytebot Logo"
+              alt="augments Logo"
               width={100}
               height={30}
               className="h-8 w-auto"
@@ -63,7 +63,7 @@ export function Header() {
             <div className="h-8 w-[110px]" />
           )}
         </div>
-        <div className="border-bytebot-bronze-dark-11 h-5 border border-l-[0.5px]"></div>
+        <div className="border-augments-gray-dark-11 h-5 border border-l-[0.5px]"></div>
         <div className="flex items-center gap-2">
           <Link href="/" className={getLinkClasses("/")}>
             <HugeiconsIcon icon={Home01Icon} className="h-4 w-4" />
@@ -78,10 +78,10 @@ export function Header() {
             <span className="text-sm">Desktop</span>
           </Link>
           <Link
-            href="https://docs.bytebot.ai/quickstart"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
-            className={getLinkClasses("https://docs.bytebot.ai")}
+            className={getLinkClasses("#")}
           >
             <HugeiconsIcon icon={DocumentCodeIcon} className="h-4 w-4" />
             <span className="text-sm">Docs</span>

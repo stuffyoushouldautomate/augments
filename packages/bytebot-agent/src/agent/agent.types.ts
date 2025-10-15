@@ -1,5 +1,5 @@
 import { Message } from '@prisma/client';
-import { MessageContentBlock } from '@bytebot/shared';
+import { MessageContentBlock } from '@augments/shared';
 
 export interface BytebotAgentResponse {
   contentBlocks: MessageContentBlock[];

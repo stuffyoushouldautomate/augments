@@ -1,5 +1,5 @@
 import React from "react";
-import { isTextContentBlock, ToolResultContentBlock } from "@bytebot/shared";
+import { isTextContentBlock, ToolResultContentBlock } from "@augments/shared";
 import { AlertCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 

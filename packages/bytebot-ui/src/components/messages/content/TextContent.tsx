@@ -1,6 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { TextContentBlock } from "@bytebot/shared";
+import { TextContentBlock } from "@augments/shared";
 
 interface TextContentProps {
   block: TextContentBlock;
@@ -9,36 +9,36 @@ interface TextContentProps {
 export function TextContent({ block }: TextContentProps) {
   return (
     <div className="mb-3">
-      <div className="text-bytebot-bronze-dark-8 prose prose-sm max-w-none text-sm">
+      <div className="text-augments-gray-dark-8 prose prose-sm max-w-none text-sm">
         <ReactMarkdown
           components={{
             h1: ({ children }) => (
-              <h1 className="text-bytebot-bronze-dark-9 mt-4 mb-2 text-base font-semibold">
+              <h1 className="text-augments-gray-dark-9 mt-4 mb-2 text-base font-semibold">
                 {children}
               </h1>
             ),
             h2: ({ children }) => (
-              <h2 className="text-bytebot-bronze-dark-9 mt-3 mb-2 text-sm font-semibold">
+              <h2 className="text-augments-gray-dark-9 mt-3 mb-2 text-sm font-semibold">
                 {children}
               </h2>
             ),
             h3: ({ children }) => (
-              <h3 className="text-bytebot-bronze-dark-9 mt-3 mb-1 text-sm font-medium">
+              <h3 className="text-augments-gray-dark-9 mt-3 mb-1 text-sm font-medium">
                 {children}
               </h3>
             ),
             h4: ({ children }) => (
-              <h4 className="text-bytebot-bronze-dark-8 mt-2 mb-1 text-sm font-medium">
+              <h4 className="text-augments-gray-dark-8 mt-2 mb-1 text-sm font-medium">
                 {children}
               </h4>
             ),
             h5: ({ children }) => (
-              <h5 className="text-bytebot-bronze-dark-8 mt-2 mb-1 text-xs font-medium">
+              <h5 className="text-augments-gray-dark-8 mt-2 mb-1 text-xs font-medium">
                 {children}
               </h5>
             ),
             h6: ({ children }) => (
-              <h6 className="text-bytebot-bronze-dark-8 mt-2 mb-1 text-xs font-medium">
+              <h6 className="text-augments-gray-dark-8 mt-2 mb-1 text-xs font-medium">
                 {children}
               </h6>
             ),
@@ -61,18 +61,18 @@ export function TextContent({ block }: TextContentProps) {
               </li>
             ),
             blockquote: ({ children }) => (
-              <blockquote className="border-bytebot-bronze-light-7 text-bytebot-bronze-dark-7 mb-2 border-l-4 pl-4 italic">
+              <blockquote className="border-augments-gray-light-7 text-augments-gray-dark-7 mb-2 border-l-4 pl-4 italic">
                 {children}
               </blockquote>
             ),
             code: ({ children, className }) => {
               const isInline = !className;
               return isInline ? (
-                <code className="text-bytebot-bronze-dark-9 rounded px-1 py-0.5 font-mono text-xs">
+                <code className="text-augments-gray-dark-9 rounded px-1 py-0.5 font-mono text-xs">
                   {children}
                 </code>
               ) : (
-                <code className="text-bytebot-bronze-dark-9 block overflow-x-auto rounded p-3 font-mono text-xs whitespace-pre-wrap">
+                <code className="text-augments-gray-dark-9 block overflow-x-auto rounded p-3 font-mono text-xs whitespace-pre-wrap">
                   {children}
                 </code>
               );
@@ -83,12 +83,12 @@ export function TextContent({ block }: TextContentProps) {
               </pre>
             ),
             strong: ({ children }) => (
-              <strong className="text-bytebot-bronze-dark-9 font-semibold">
+              <strong className="text-augments-gray-dark-9 font-semibold">
                 {children}
               </strong>
             ),
             em: ({ children }) => (
-              <em className="text-bytebot-bronze-dark-8 italic">
+              <em className="text-augments-gray-dark-8 italic">
                 {children}
               </em>
             ),

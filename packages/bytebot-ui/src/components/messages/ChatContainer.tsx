@@ -81,9 +81,9 @@ export function ChatContainer({
   };
 
   return (
-    <div className="bg-bytebot-bronze-light-3 flex h-full flex-col">
+    <div className="bg-augments-gray-light-3 flex h-full flex-col">
       {isLoadingSession ? (
-        <div className="bg-bytebot-bronze-light-3 border-bytebot-bronze-light-7 flex h-full min-h-80 items-center justify-center overflow-hidden rounded-lg border">
+        <div className="bg-augments-gray-light-3 border-augments-gray-light-7 flex h-full min-h-80 items-center justify-center overflow-hidden rounded-lg border">
           <Loader size={32} />
         </div>
       ) : groupedMessages.length > 0 ? (
@@ -102,14 +102,14 @@ export function ChatContainer({
 
             {taskStatus === TaskStatus.RUNNING &&
               control === Role.ASSISTANT && (
-                <div className="bg-bytebot-bronze-light-3 border-bytebot-bronze-light-7 flex items-center justify-start gap-4 border-x px-4 py-3">
+                <div className="bg-augments-gray-light-3 border-augments-gray-light-7 flex items-center justify-start gap-4 border-x px-4 py-3">
                   <MessageAvatar role={Role.ASSISTANT} />
                   <div className="flex items-center justify-start gap-2">
                     <div className="flex h-full items-center justify-center py-2">
                       <Loader size={20} />
                     </div>
                     <TextShimmer className="text-sm" duration={2}>
-                      Bytebot is working...
+                      augments is working...
                     </TextShimmer>
                   </div>
                 </div>
@@ -128,9 +128,9 @@ export function ChatContainer({
 
           {/* Fixed chat input at bottom */}
           {[TaskStatus.RUNNING, TaskStatus.NEEDS_HELP].includes(taskStatus) && (
-            <div className="bg-bytebot-bronze-light-3 z-10 flex-shrink-0">
-              <div className="border-bytebot-bronze-light-7 rounded-b-lg border-x border-b p-2">
-                <div className="bg-bytebot-bronze-light-2 border-bytebot-bronze-light-7 rounded-lg border p-2">
+            <div className="bg-augments-gray-light-3 z-10 flex-shrink-0">
+              <div className="border-augments-gray-light-7 rounded-b-lg border-x border-b p-2">
+                <div className="bg-augments-gray-light-2 border-augments-gray-light-7 rounded-lg border p-2">
                   <ChatInput
                     input={input}
                     isLoading={isLoading}

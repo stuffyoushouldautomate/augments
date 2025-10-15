@@ -31,13 +31,13 @@ const TAB_CONFIGS: Record<TabKey, TabConfig> = {
   ALL: {
     label: "All",
     icon: ListViewIcon,
-    color: "text-bytebot-bronze-light-10",
+    color: "text-augments-gray-light-10",
     statuses: Object.values(TaskStatus),
   },
   ACTIVE: {
     label: "Active",
     icon: CursorProgress04Icon,
-    color: "text-bytebot-bronze-light-10",
+    color: "text-augments-gray-light-10",
     statuses: [
       TaskStatus.PENDING,
       TaskStatus.RUNNING,
@@ -48,13 +48,13 @@ const TAB_CONFIGS: Record<TabKey, TabConfig> = {
   COMPLETED: {
     label: "Completed",
     icon: Tick02Icon,
-    color: "text-bytebot-bronze-light-10",
+    color: "text-augments-gray-light-10",
     statuses: [TaskStatus.COMPLETED],
   },
   CANCELLED_FAILED: {
     label: "Cancelled/Failed",
     icon: MultiplicationSignIcon,
-    color: "text-bytebot-bronze-light-10",
+    color: "text-augments-gray-light-10",
     statuses: [TaskStatus.CANCELLED, TaskStatus.FAILED],
   },
 };
@@ -67,7 +67,7 @@ export const TaskTabs: React.FC<TaskTabsProps> = ({
   const tabs = Object.entries(TAB_CONFIGS) as [TabKey, TabConfig][];
 
   return (
-    <div className="border-bytebot-bronze-light-7 mb-6 border-b">
+    <div className="border-augments-gray-light-7 mb-6 border-b">
       <div className="flex overflow-x-auto">
         {tabs.map(([tabKey, config]) => {
           const isActive = activeTab === tabKey;
@@ -79,21 +79,21 @@ export const TaskTabs: React.FC<TaskTabsProps> = ({
               onClick={() => onTabChange(tabKey)}
               className={`flex cursor-pointer items-center space-x-2 border-b-2 px-4 py-3 whitespace-nowrap transition-colors ${
                 isActive
-                  ? "border-bytebot-bronze-dark-7 text-bytebot-bronze-dark-7"
-                  : "text-bytebot-bronze-light-10 hover:text-bytebot-bronze-dark-7 border-transparent"
+                  ? "border-augments-gray-dark-7 text-augments-gray-dark-7"
+                  : "text-augments-gray-light-10 hover:text-augments-gray-dark-7 border-transparent"
               }`}
             >
               <HugeiconsIcon
                 icon={config.icon}
-                className={`h-4 w-4 ${isActive ? "text-bytebot-bronze-dark-7" : config.color}`}
+                className={`h-4 w-4 ${isActive ? "text-augments-gray-dark-7" : config.color}`}
               />
               <span className="text-sm font-medium">{config.label}</span>
               {count > 0 && (
                 <span
                   className={`rounded-full px-2 py-0.5 text-xs ${
                     isActive
-                      ? "bg-bytebot-bronze-dark-7 text-white"
-                      : "bg-bytebot-bronze-light-7 text-bytebot-bronze-light-11"
+                      ? "bg-augments-gray-dark-7 text-white"
+                      : "bg-augments-gray-light-7 text-augments-gray-light-11"
                   }`}
                 >
                   {count}

@@ -8,7 +8,7 @@ import {
   MessageContentType,
   TextContentBlock,
   ToolUseContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 import {
   BytebotAgentService,
   BytebotAgentInterrupt,

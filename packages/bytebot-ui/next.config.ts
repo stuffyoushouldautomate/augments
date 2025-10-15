@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@bytebot/shared"],
+  transpilePackages: ["@augments/shared"],
 };
 
 export default nextConfig;

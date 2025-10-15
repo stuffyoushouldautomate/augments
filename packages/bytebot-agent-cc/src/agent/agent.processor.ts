@@ -17,14 +17,14 @@ import {
   RedactedThinkingContentBlock,
   ThinkingContentBlock,
   ToolUseContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 
 import {
   MessageContentBlock,
   MessageContentType,
   ToolResultContentBlock,
   TextContentBlock,
-} from '@bytebot/shared';
+} from '@augments/shared';
 import { InputCaptureService } from './input-capture.service';
 import { OnEvent } from '@nestjs/event-emitter';
 import {
