@@ -1,15 +1,15 @@
-name: bytebot
+name: augments
 
 services:
-  bytebot-desktop:
+  augments-desktop:
     # Build from source
     build:
       context: ../packages/
       dockerfile: bytebotd/Dockerfile
-    # Use pre-built image
-    image: ghcr.io/bytebot-ai/bytebot-desktop:edge
+    # Use pre-built image (commented out - build from source instead)
+    # image: ghcr.io/bytebot-ai/bytebot-desktop:edge
     shm_size: "2g"
-    container_name: bytebot-desktop
+    container_name: augments-desktop
     restart: unless-stopped
     hostname: computer
     privileged: true
@@ -18,69 +18,70 @@ services:
     environment:
       - DISPLAY=:0
     networks:
-      - bytebot-network
+      - augments-network
 
   postgres:
     image: postgres:16-alpine
-    container_name: bytebot-postgres
+    container_name: augments-postgres
     restart: unless-stopped
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=bytebotdb
+      - POSTGRES_DB=augmentsdb
     networks:
-      - bytebot-network
+      - augments-network
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  bytebot-agent:
+  augments-agent:
     build:
       context: ../packages/
       dockerfile: bytebot-agent/Dockerfile
-    # Use pre-built image
-    image: ghcr.io/bytebot-ai/bytebot-agent:edge
-    container_name: bytebot-agent
+    # Use pre-built image (commented out - build from source instead)
+    # image: ghcr.io/bytebot-ai/bytebot-agent:edge
+    container_name: augments-agent
     restart: unless-stopped
     ports:
       - "9991:9991"
     environment:
-      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/bytebotdb}
-      - BYTEBOT_DESKTOP_BASE_URL=${BYTEBOT_DESKTOP_BASE_URL:-http://bytebot-desktop:9990}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/augmentsdb}
+      - BYTEBOT_DESKTOP_BASE_URL=${BYTEBOT_DESKTOP_BASE_URL:-http://augments-desktop:9990}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     depends_on:
       - postgres
     networks:
-      - bytebot-network
+      - augments-network
 
-  bytebot-ui:
+  augments-ui:
     build:
       context: ../packages/
       dockerfile: bytebot-ui/Dockerfile
       args:
-        - BYTEBOT_AGENT_BASE_URL=${BYTEBOT_AGENT_BASE_URL:-http://bytebot-agent:9991}
-        - BYTEBOT_DESKTOP_VNC_URL=${BYTEBOT_DESKTOP_VNC_URL:-http://bytebot-desktop:9990/websockify}
-    # Use pre-built image
-    image: ghcr.io/bytebot-ai/bytebot-ui:edge
-    container_name: bytebot-ui
+        - BYTEBOT_AGENT_BASE_URL=${BYTEBOT_AGENT_BASE_URL:-http://augments-agent:9991}
+        - BYTEBOT_DESKTOP_VNC_URL=${BYTEBOT_DESKTOP_VNC_URL:-http://augments-desktop:9990/websockify}
+    # Use pre-built image (commented out - build from source instead)
+    # image: ghcr.io/bytebot-ai/bytebot-ui:edge
+    container_name: augments-ui
     restart: unless-stopped
     ports:
       - "9992:9992"
     environment:
       - NODE_ENV=production
-      - BYTEBOT_AGENT_BASE_URL=${BYTEBOT_AGENT_BASE_URL:-http://bytebot-agent:9991}
-      - BYTEBOT_DESKTOP_VNC_URL=${BYTEBOT_DESKTOP_VNC_URL:-http://bytebot-desktop:9990/websockify}
+      - BYTEBOT_AGENT_BASE_URL=${BYTEBOT_AGENT_BASE_URL:-http://augments-agent:9991}
+      - BYTEBOT_DESKTOP_VNC_URL=${BYTEBOT_DESKTOP_VNC_URL:-http://augments-desktop:9990/websockify}
     depends_on:
-      - bytebot-agent
+      - augments-agent
     networks:
-      - bytebot-network
+      - augments-network
 
 networks:
-  bytebot-network:
+  augments-network:
     driver: bridge
 
 volumes:
   postgres_data:
+
