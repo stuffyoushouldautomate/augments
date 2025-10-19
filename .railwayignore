@@ -1,0 +1,7 @@
+docker/
+helm/
+docs/
+static/
+*.md
+.env
+.env.*

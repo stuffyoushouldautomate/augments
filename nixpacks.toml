@@ -16,6 +16,6 @@ cmds = [
 [start]
 cmd = 'cd packages/augments-ui && pnpm start'
 
-# Force cache invalidation
+# Clear all caches to force fresh build
 [cache]
-paths = ['packages/shared/node_modules', 'packages/augments-ui/node_modules', 'packages/augments-ui/.next']
+paths = []
