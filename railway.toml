@@ -34,14 +34,23 @@ NODE_ENV = "production"
 LOG_LEVEL = "info"
 CORS_ORIGIN = "*"
 
-# Service configuration
-[deploy.services]
-augments-ui = { port = 9992 }
-augments-agent = { port = 9991 }
-augments-desktop = { port = 9990 }
-augments-llm-proxy = { port = 4000 }
+# Database connection (Railway will auto-populate these from PostgreSQL service)
+DATABASE_URL = "${{DATABASE_URL}}"
+POSTGRES_USER = "${{PGUSER}}"
+POSTGRES_PASSWORD = "${{PGPASSWORD}}"
+POSTGRES_DB = "${{PGDATABASE}}"
+POSTGRES_HOST = "${{PGHOST}}"
+POSTGRES_PORT = "${{PGPORT}}"
 
-# PostgreSQL database configuration
-[deploy.database]
-type = "postgresql"
-version = "16"
+# Service URLs (configured for Railway networking)
+AUGMENTS_AGENT_BASE_URL = "http://augments-agent:9991"
+AUGMENTS_DESKTOP_BASE_URL = "http://augments-desktop:9990"
+AUGMENTS_DESKTOP_VNC_URL = "http://augments-desktop:9990/websockify"
+AUGMENTS_UI_BASE_URL = "http://augments-ui:9992"
+AUGMENTS_LLM_PROXY_URL = "http://augments-llm-proxy:4000"
+
+# Security configuration
+JWT_SECRET = "your_secure_jwt_secret_change_in_production"
+
+# Resource limits (Railway optimized)
+NODE_OPTIONS = "--max-old-space-size=1024"
