@@ -1,0 +1,273 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TaskStatus {
+  PENDING
+  RUNNING
+  NEEDS_HELP
+  NEEDS_REVIEW
+  COMPLETED
+  CANCELLED
+  FAILED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum Role {
+  USER
+  ASSISTANT
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  VIEWER
+}
+
+enum WorkspaceStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PROVISIONING
+  ERROR
+}
+
+enum TaskStepStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  SKIPPED
+}
+
+enum UsageType {
+  AI_TOKENS
+  SERVER_CPU
+  SERVER_MEMORY
+  SERVER_STORAGE
+  NETWORK_BANDWIDTH
+}
+
+enum TaskType {
+  IMMEDIATE
+  SCHEDULED
+}
+
+// Multi-user models
+model User {
+  id                String      @id @default(uuid())
+  email             String      @unique
+  username          String      @unique
+  passwordHash      String      // Hashed password
+  firstName         String?
+  lastName          String?
+  profileImage      String?     // URL or base64
+  role              UserRole    @default(USER)
+  isActive          Boolean     @default(true)
+  lastLoginAt       DateTime?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  
+  // Relations
+  workspaces        Workspace[]
+  apiKeys           ApiKey[]
+  tasks             Task[]
+  sessions          UserSession[]
+  usageRecords      UsageRecord[]
+}
+
+model Workspace {
+  id                String          @id @default(uuid())
+  name              String
+  description       String?
+  status            WorkspaceStatus @default(PROVISIONING)
+  containerId       String?         // Docker container ID
+  vncPort           Int?            // VNC port for this workspace
+  desktopUrl        String?         // Desktop access URL
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  lastAccessedAt    DateTime?
+  
+  // Usage tracking
+  cpuUsage          Float?          // CPU usage percentage
+  memoryUsage       Float?          // Memory usage percentage
+  diskUsage         Float?          // Disk usage percentage
+  networkIn         Float?          // Network input in MB
+  networkOut        Float?          // Network output in MB
+  
+  // Relations
+  userId            String
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks             Task[]
+  usageRecords      UsageRecord[]
+}
+
+model ApiKey {
+  id                String      @id @default(uuid())
+  name              String      // User-friendly name for the key
+  keyHash           String      // Hashed API key
+  keyPrefix         String      // First 8 characters for display
+  isActive          Boolean     @default(true)
+  lastUsedAt        DateTime?
+  expiresAt         DateTime?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  
+  // Relations
+  userId            String
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserSession {
+  id                String      @id @default(uuid())
+  sessionToken      String      @unique
+  expiresAt         DateTime
+  createdAt         DateTime    @default(now())
+  lastAccessedAt    DateTime    @default(now())
+  
+  // Relations
+  userId            String
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TaskStep {
+  id                String          @id @default(uuid())
+  title             String
+  description       String?
+  status            TaskStepStatus  @default(PENDING)
+  order             Int             // Order of execution
+  startedAt         DateTime?
+  completedAt       DateTime?
+  error              String?
+  result             Json?          // Step-specific result data
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  
+  // Relations
+  taskId            String
+  task              Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model UsageRecord {
+  id                String      @id @default(uuid())
+  type              UsageType
+  amount            Float       // Amount consumed (tokens, CPU seconds, MB, etc.)
+  unit              String      // Unit of measurement (tokens, seconds, MB, GB, etc.)
+  cost              Float?      // Cost in credits/currency if applicable
+  description       String?     // Human-readable description
+  metadata          Json?       // Additional metadata (model used, etc.)
+  createdAt         DateTime    @default(now())
+  
+  // Relations
+  userId            String
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId            String?
+  task              Task?       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  workspaceId       String?
+  workspace         Workspace?  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id            String        @id @default(uuid())
+  description   String
+  type          TaskType      @default(IMMEDIATE)
+  status        TaskStatus    @default(PENDING)
+  priority      TaskPriority  @default(MEDIUM)
+  control       Role          @default(ASSISTANT)
+  createdAt     DateTime      @default(now())
+  createdBy     Role          @default(USER)
+  scheduledFor  DateTime?
+  updatedAt     DateTime      @updatedAt
+  executedAt    DateTime?
+  completedAt   DateTime?
+  queuedAt      DateTime?
+  error         String?
+  result        Json?
+  // Example: 
+  // { "provider": "anthropic", "name": "claude-opus-4-20250514", "title": "Claude Opus 4" }
+  model         Json
+  
+  // Multi-user fields
+  userId        String?
+  user          User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId   String?
+  workspace     Workspace?    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  // Task completion timer
+  completionTimerStartedAt DateTime?
+  completionTimerDuration  Int?        // Duration in seconds (default 90)
+  
+  // Relations
+  messages      Message[]
+  summaries     Summary[]
+  files         File[]
+  steps         TaskStep[]
+  usageRecords  UsageRecord[]
+}
+
+model Summary {
+  id             String     @id @default(uuid())
+  content        String
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  messages       Message[]  // One-to-many relationship: one Summary has many Messages
+
+  task      Task        @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId    String
+  
+  // Self-referential relationship
+  parentSummary  Summary?   @relation("SummaryHierarchy", fields: [parentId], references: [id])
+  parentId       String?
+  childSummaries Summary[]  @relation("SummaryHierarchy")
+}
+
+model Message {
+  id        String      @id @default(uuid())
+  // Content field follows Anthropic's content blocks structure
+  // Example: 
+  // [
+  //   {"type": "text", "text": "Hello world"},
+  //   {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": "..."}}
+  // ]
+  content   Json
+  role      Role @default(ASSISTANT)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  task      Task        @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId    String
+  summary   Summary?    @relation(fields: [summaryId], references: [id])
+  summaryId String?     // Optional foreign key to Summary
+}
+
+model File {
+  id            String      @id @default(uuid())
+  name          String
+  type          String      // MIME type
+  size          Int         // Size in bytes
+  data          String      // Base64 encoded file data
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  // Relations
+  task          Task        @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId        String
+}
+
