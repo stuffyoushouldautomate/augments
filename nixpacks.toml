@@ -15,7 +15,3 @@ cmds = [
 
 [start]
 cmd = 'cd packages/augments-ui && pnpm start'
-
-# Clear all caches to force fresh build
-[cache]
-paths = []
