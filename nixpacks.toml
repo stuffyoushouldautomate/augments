@@ -4,15 +4,15 @@ nixPkgs = ['nodejs_20', 'pnpm']
 [phases.install]
 cmds = [
     'cd packages/shared && pnpm install',
-    'cd packages/bytebot-ui && pnpm install'
+    'cd packages/augments-ui && pnpm install'
 ]
 
 [phases.build]
 cmds = [
     'cd packages/shared && pnpm run build',
-    'cd packages/bytebot-ui && pnpm run build'
+    'cd packages/augments-ui && pnpm run build'
 ]
 
 [start]
-cmd = 'cd packages/bytebot-ui && pnpm start'
+cmd = 'cd packages/augments-ui && pnpm start'
 

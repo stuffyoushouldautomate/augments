@@ -9,7 +9,7 @@ builder = "NIXPACKS"
 
 # Build configuration for the UI service (main entry point)
 [build.phases.setup]
-nixPkgs = ['nodejs_20', 'pnpm', 'postgresql_16']
+nixPkgs = ['nodejs_20', 'pnpm']
 
 [build.phases.install]
 cmds = [
