@@ -1,0 +1,15 @@
+{
+  "name": "augments",
+  "version": "1.0.0",
+  "description": "Augments AI Agent Platform",
+  "scripts": {
+    "build": "cd packages/shared && pnpm install && pnpm run build && cd ../augments-ui && pnpm install && pnpm run build",
+    "start": "cd packages/augments-ui && pnpm start",
+    "dev": "cd packages/augments-ui && pnpm dev"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}

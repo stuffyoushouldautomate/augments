@@ -1,56 +1,5 @@
-# =============================================================================
-# RAILWAY DEPLOYMENT CONFIGURATION FOR AUGMENTS
-# =============================================================================
-# This configuration enables one-click deployment of the complete Augments stack
-# on Railway with PostgreSQL and all required services.
-
 [build]
 builder = "NIXPACKS"
 
-# Build configuration for the UI service (main entry point)
-[build.phases.setup]
-nixPkgs = ['nodejs_20', 'pnpm']
-
-[build.phases.install]
-cmds = [
-    'cd packages/shared && pnpm install',
-    'cd packages/augments-ui && pnpm install'
-]
-
-[build.phases.build]
-cmds = [
-    'cd packages/shared && pnpm run build',
-    'cd packages/augments-ui && pnpm run build'
-]
-
 [deploy]
-startCommand = 'cd packages/augments-ui && pnpm start'
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10
-
-# Environment variables that Railway will automatically configure
-[deploy.variables]
-NODE_ENV = "production"
-LOG_LEVEL = "info"
-CORS_ORIGIN = "*"
-
-# Database connection (Railway will auto-populate these from PostgreSQL service)
-DATABASE_URL = "${{DATABASE_URL}}"
-POSTGRES_USER = "${{PGUSER}}"
-POSTGRES_PASSWORD = "${{PGPASSWORD}}"
-POSTGRES_DB = "${{PGDATABASE}}"
-POSTGRES_HOST = "${{PGHOST}}"
-POSTGRES_PORT = "${{PGPORT}}"
-
-# Service URLs (configured for Railway networking)
-AUGMENTS_AGENT_BASE_URL = "http://augments-agent:9991"
-AUGMENTS_DESKTOP_BASE_URL = "http://augments-desktop:9990"
-AUGMENTS_DESKTOP_VNC_URL = "http://augments-desktop:9990/websockify"
-AUGMENTS_UI_BASE_URL = "http://augments-ui:9992"
-AUGMENTS_LLM_PROXY_URL = "http://augments-llm-proxy:4000"
-
-# Security configuration
-JWT_SECRET = "your_secure_jwt_secret_change_in_production"
-
-# Resource limits (Railway optimized)
-NODE_OPTIONS = "--max-old-space-size=1024"
+startCommand = "cd packages/augments-ui && pnpm start"
