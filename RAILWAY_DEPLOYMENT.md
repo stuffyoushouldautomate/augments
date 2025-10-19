@@ -1,123 +1,140 @@
 # Railway Deployment Guide for Augments
 
-## Important Note
+## 🚀 One-Click Railway Deployment
 
-Railway deployment for this application is **complex** because it requires multiple services:
-- PostgreSQL database
-- Desktop container (requires privileged mode)
-- Agent service
-- UI service
+Deploy Augments to Railway with PostgreSQL and all services in just a few clicks!
 
-**Railway's standard deployment doesn't support all these requirements**, particularly the privileged desktop container.
+### Prerequisites
 
-## Recommended Deployment Options
+- Railway account (free tier available)
+- At least one API key from: Anthropic, OpenAI, OpenRouter, or Google Gemini
 
-### Option 1: Docker Compose (Recommended)
+### Quick Start (5 minutes)
 
-Deploy on any VPS or cloud provider that supports Docker:
+1. **Fork this repository** to your GitHub account
+2. **Connect to Railway**:
+   - Go to [Railway.app](https://railway.app)
+   - Click "Deploy from GitHub repo"
+   - Select your forked `augments` repository
+   - Railway will automatically detect the `railway.toml` configuration
+
+3. **Configure API Keys**:
+   - In Railway dashboard, go to your project
+   - Click on "Variables" tab
+   - Add your API key(s):
+     ```
+     ANTHROPIC_API_KEY=your_key_here
+     # OR
+     OPENAI_API_KEY=your_key_here
+     # OR  
+     OPENROUTER_API_KEY=your_key_here
+     # OR
+     GEMINI_API_KEY=your_key_here
+     ```
+
+4. **Deploy**:
+   - Railway will automatically:
+     - Provision PostgreSQL database
+     - Deploy all services (UI, Agent, Desktop, LLM Proxy)
+     - Configure networking between services
+     - Set up production-ready environment
+
+5. **Access your app**:
+   - Railway will provide a public URL
+   - Your Augments app will be live and ready to use!
+
+### What Gets Deployed
+
+Railway automatically deploys:
+
+- ✅ **PostgreSQL Database** - Persistent data storage
+- ✅ **Augments UI** - Web interface (port 9992)
+- ✅ **Augments Agent** - Core AI agent service (port 9991)  
+- ✅ **Augments Desktop** - Desktop automation service (port 9990)
+- ✅ **LLM Proxy** - API key management (port 4000)
+- ✅ **Automatic networking** - Services communicate seamlessly
+- ✅ **Production configuration** - Optimized for Railway's infrastructure
+
+### Environment Configuration
+
+The deployment uses production-ready defaults. You only need to configure:
+
+**Required:**
+- At least one LLM API key (Anthropic, OpenAI, OpenRouter, or Gemini)
+
+**Optional:**
+- `JWT_SECRET` - For enhanced security (auto-generated if not provided)
+
+All other settings are automatically configured for Railway deployment.
+
+### Local Development
+
+For local development, use Docker Compose:
 
 ```bash
 git clone https://github.com/datapilotplus/augments.git
 cd augments
 
-# Set your API key
-echo "ANTHROPIC_API_KEY=your-key-here" > docker/.env
+# Copy environment template
+cp .env.template docker/.env
 
-# Start all services
+# Edit docker/.env and add your API keys
+# Then start all services
 docker-compose -f docker/docker-compose.yml up -d
 
-# Access at http://your-server-ip:9992
+# Access at http://localhost:9992
 ```
 
-### Option 2: Railway with Multiple Services
+### Production Features
 
-If you want to use Railway, you'll need to deploy each service separately:
+- **Automatic scaling** - Railway handles traffic spikes
+- **Zero-downtime deployments** - Updates without service interruption  
+- **Built-in monitoring** - Logs and metrics in Railway dashboard
+- **Secure by default** - HTTPS, environment isolation, secure networking
+- **Cost-effective** - Pay only for what you use
 
-#### 1. Deploy PostgreSQL
-- Create a new PostgreSQL database in Railway
-- Note the connection URL
+### Troubleshooting
 
-#### 2. Deploy Agent Service
-- Create a new service from `packages/bytebot-agent`
-- Set environment variables:
-  - `DATABASE_URL`: Your PostgreSQL URL
-  - `ANTHROPIC_API_KEY`: Your API key
-  - `BYTEBOT_DESKTOP_BASE_URL`: URL of desktop service
+**Service not starting?**
+- Check Railway logs in the dashboard
+- Verify your API keys are correctly set
+- Ensure you have at least one valid LLM API key
 
-#### 3. Deploy UI Service
-- Create a new service from `packages/bytebot-ui`
-- Set environment variables:
-  - `BYTEBOT_AGENT_BASE_URL`: URL of agent service
-  - `BYTEBOT_DESKTOP_VNC_URL`: URL of desktop service
+**Database connection issues?**
+- Railway automatically provides `DATABASE_URL`
+- No manual database configuration needed
 
-#### 4. Desktop Service (Problematic)
-The desktop service requires:
-- Privileged container mode (not supported on Railway)
-- X11/VNC server
-- Significant resources
+**Desktop service issues?**
+- Railway's infrastructure supports the desktop service
+- If you encounter issues, check the logs for specific errors
 
-**This service cannot run on Railway's standard infrastructure.**
+### Support
 
-## Alternative: Deploy UI Only
+- **Documentation**: Check this repository's README
+- **Issues**: Open an issue on GitHub
+- **Railway Support**: Use Railway's built-in support system
 
-If you want to use Railway for the UI and host other services elsewhere:
+### Alternative Deployment Options
 
-1. Deploy the desktop and agent services on a VPS with Docker
-2. Deploy only the UI on Railway
-3. Configure environment variables to point to your VPS services
+If Railway doesn't meet your needs:
 
-### Railway UI-Only Configuration
+1. **DigitalOcean App Platform** - Docker Compose support
+2. **AWS ECS/Fargate** - Full container orchestration  
+3. **Google Cloud Run** - Serverless containers
+4. **Self-hosted VPS** - Full control with Docker Compose
 
-Create a `railway.toml` in the root:
-
-```toml
-[build]
-builder = "NIXPACKS"
-buildCommand = "cd packages/shared && pnpm install && pnpm run build && cd ../bytebot-ui && pnpm install && pnpm run build"
-
-[deploy]
-startCommand = "cd packages/bytebot-ui && pnpm start"
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10
-```
-
-Environment variables needed:
-- `BYTEBOT_AGENT_BASE_URL`: https://your-agent-service.com
-- `BYTEBOT_DESKTOP_VNC_URL`: wss://your-desktop-service.com/websockify
-
-## Recommended Full-Stack Deployment Platforms
-
-For a complete deployment, consider:
-
-1. **DigitalOcean App Platform** - Supports Docker Compose
-2. **AWS ECS/Fargate** - Full container orchestration
-3. **Google Cloud Run** - Container deployment
-4. **Self-hosted VPS** - Full control (DigitalOcean, Linode, Vultr)
-
-## Quick VPS Deployment
-
+For VPS deployment:
 ```bash
-# On your VPS (Ubuntu/Debian)
+# On Ubuntu/Debian VPS
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
 git clone https://github.com/datapilotplus/augments.git
 cd augments
-echo "ANTHROPIC_API_KEY=your-key" > docker/.env
+cp .env.template docker/.env
+# Edit docker/.env with your API keys
 docker-compose -f docker/docker-compose.yml up -d
 ```
 
-Access your deployment at `http://your-vps-ip:9992`
-
-## Why Railway Doesn't Work Well
-
-1. **No privileged containers** - Desktop service needs this
-2. **Complex multi-service architecture** - Better suited for Docker Compose
-3. **Resource requirements** - Desktop container needs significant RAM/CPU
-4. **Networking complexity** - Services need to communicate internally
-
-## Support
-
-For deployment questions, please open an issue at:
-https://github.com/datapilotplus/augments/issues
+Access at `http://your-vps-ip:9992`
 

@@ -1,0 +1,47 @@
+# =============================================================================
+# RAILWAY DEPLOYMENT CONFIGURATION FOR AUGMENTS
+# =============================================================================
+# This configuration enables one-click deployment of the complete Augments stack
+# on Railway with PostgreSQL and all required services.
+
+[build]
+builder = "NIXPACKS"
+
+# Build configuration for the UI service (main entry point)
+[build.phases.setup]
+nixPkgs = ['nodejs_20', 'pnpm', 'postgresql_16']
+
+[build.phases.install]
+cmds = [
+    'cd packages/shared && pnpm install',
+    'cd packages/augments-ui && pnpm install'
+]
+
+[build.phases.build]
+cmds = [
+    'cd packages/shared && pnpm run build',
+    'cd packages/augments-ui && pnpm run build'
+]
+
+[deploy]
+startCommand = 'cd packages/augments-ui && pnpm start'
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Environment variables that Railway will automatically configure
+[deploy.variables]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+CORS_ORIGIN = "*"
+
+# Service configuration
+[deploy.services]
+augments-ui = { port = 9992 }
+augments-agent = { port = 9991 }
+augments-desktop = { port = 9990 }
+augments-llm-proxy = { port = 4000 }
+
+# PostgreSQL database configuration
+[deploy.database]
+type = "postgresql"
+version = "16"
