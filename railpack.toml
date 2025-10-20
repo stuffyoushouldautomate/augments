@@ -1,0 +1,17 @@
+[build]
+builder = "railpack"
+
+[build.phases.install]
+cmds = [
+    "cd packages/shared && pnpm install",
+    "cd packages/augments-ui && pnpm install"
+]
+
+[build.phases.build]
+cmds = [
+    "cd packages/shared && pnpm run build",
+    "cd packages/augments-ui && pnpm run build"
+]
+
+[deploy]
+startCommand = "cd packages/augments-ui && pnpm start"
