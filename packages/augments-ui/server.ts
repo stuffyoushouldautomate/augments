@@ -13,8 +13,16 @@ const hostname = process.env.HOSTNAME || "localhost";
 const port = parseInt(process.env.PORT || "9992", 10);
 
 // Backend URLs
-const BYTEBOT_AGENT_BASE_URL = process.env.BYTEBOT_AGENT_BASE_URL;
-const BYTEBOT_DESKTOP_VNC_URL = process.env.BYTEBOT_DESKTOP_VNC_URL;
+const AUGMENTS_AGENT_BASE_URL = process.env.AUGMENTS_AGENT_BASE_URL || "http://localhost:9991";
+const AUGMENTS_DESKTOP_VNC_URL = process.env.AUGMENTS_DESKTOP_VNC_URL || "http://localhost:9990/websockify";
+
+// Validate required environment variables
+if (!process.env.AUGMENTS_AGENT_BASE_URL) {
+  console.warn("Warning: AUGMENTS_AGENT_BASE_URL not set, using default");
+}
+if (!process.env.AUGMENTS_DESKTOP_VNC_URL) {
+  console.warn("Warning: AUGMENTS_DESKTOP_VNC_URL not set, using default");
+}
 
 const app = next({ dev, hostname, port });
 
@@ -31,7 +39,7 @@ app
 
     // WebSocket proxy for Socket.IO connections to backend
     const tasksProxy = createProxyMiddleware({
-      target: BYTEBOT_AGENT_BASE_URL,
+      target: AUGMENTS_AGENT_BASE_URL,
       ws: true,
       pathRewrite: { "^/api/proxy/tasks": "/socket.io" },
     });
@@ -41,7 +49,7 @@ app
     expressApp.use("/api/proxy/websockify", (req, res) => {
       console.log("Proxying websockify request");
       // Rewrite path
-      const targetUrl = new URL(BYTEBOT_DESKTOP_VNC_URL!);
+      const targetUrl = new URL(AUGMENTS_DESKTOP_VNC_URL!);
       req.url =
         targetUrl.pathname +
         (req.url?.replace(/^\/api\/proxy\/websockify/, "") || "");
@@ -65,7 +73,7 @@ app
       }
 
       if (pathname.startsWith("/api/proxy/websockify")) {
-        const targetUrl = new URL(BYTEBOT_DESKTOP_VNC_URL!);
+        const targetUrl = new URL(AUGMENTS_DESKTOP_VNC_URL!);
         request.url =
           targetUrl.pathname +
           (request.url?.replace(/^\/api\/proxy\/websockify/, "") || "");
