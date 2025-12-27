@@ -3,9 +3,9 @@ import { BytebotAgentModel } from 'src/agent/agent.types';
 export const OPENAI_MODELS: BytebotAgentModel[] = [
   {
     provider: 'openai',
-    name: 'o3-2025-04-16',
-    title: 'o3',
-    contextWindow: 200000,
+    name: 'gpt-5.1',
+    title: 'GPT-5.1',
+    contextWindow: 128000,
   },
   {
     provider: 'openai',

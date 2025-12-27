@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Bytebot",
   description: "Bytebot is the container for desktop agents.",
+  icons: {
+    icon: "/bytebot_icon.svg",
+  },
 };
 
 export default function RootLayout({

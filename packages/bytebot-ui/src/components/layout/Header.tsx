@@ -52,7 +52,7 @@ export function Header() {
               src={
                 resolvedTheme === "dark"
                   ? "/bytebot_transparent_logo_white.svg"
-                  : "/bytebot_transparent_logo_dark.svg"
+                  : "/bytebot_transparent_logo_dark.png"
               }
               alt="Bytebot Logo"
               width={100}
