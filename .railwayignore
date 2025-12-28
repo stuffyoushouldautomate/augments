@@ -1,0 +1,9 @@
+docker/
+helm/
+docs/
+static/
+*.md
+.env
+.env.*
+docker-compose*.yml
+Dockerfile*

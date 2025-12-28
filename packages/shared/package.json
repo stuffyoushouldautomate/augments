@@ -1,5 +1,5 @@
 {
-  "name": "@bytebot/shared",
+  "name": "@augments/shared",
   "version": "0.0.1",
   "description": "Shared utilities and types for Bytebot packages",
   "main": "dist/index.js",

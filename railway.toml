@@ -1,0 +1,141 @@
+# =============================================================================
+# RAILWAY MULTI-SERVICE CONFIGURATION FOR AUGMENTS
+# =============================================================================
+# This configuration deploys all Augments services as separate Railway services
+# with proper networking and environment variables.
+
+[build]
+builder = "railpack"
+
+# =============================================================================
+# AUGMENTS UI SERVICE (Main Entry Point)
+# =============================================================================
+[services.augments-ui]
+source = "packages/augments-ui"
+
+[services.augments-ui.build.phases.install]
+cmds = [
+    "cd ../shared && pnpm install",
+    "cd ../augments-ui && pnpm install"
+]
+
+[services.augments-ui.build.phases.build]
+cmds = [
+    "cd ../shared && pnpm run build",
+    "cd ../augments-ui && pnpm run build"
+]
+
+[services.augments-ui.deploy]
+startCommand = "cd packages/augments-ui && pnpm start"
+port = 3000
+
+[services.augments-ui.variables]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+CORS_ORIGIN = "*"
+AUGMENTS_AGENT_BASE_URL = "https://augments-agent-production.up.railway.app"
+AUGMENTS_DESKTOP_BASE_URL = "https://augments-desktop-production.up.railway.app"
+AUGMENTS_DESKTOP_VNC_URL = "https://augments-desktop-production.up.railway.app/websockify"
+AUGMENTS_LLM_PROXY_URL = "https://augments-llm-proxy-production.up.railway.app"
+
+# =============================================================================
+# AUGMENTS AGENT SERVICE
+# =============================================================================
+[services.augments-agent]
+source = "packages/augments-agent"
+
+[services.augments-agent.build.phases.install]
+cmds = [
+    "cd ../shared && pnpm install",
+    "cd ../augments-agent && pnpm install"
+]
+
+[services.augments-agent.build.phases.build]
+cmds = [
+    "cd ../shared && pnpm run build",
+    "cd ../augments-agent && pnpm run build"
+]
+
+[services.augments-agent.deploy]
+startCommand = "cd packages/augments-agent && pnpm start"
+port = 9991
+
+[services.augments-agent.variables]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+DATABASE_URL = "${{Postgres.DATABASE_URL}}"
+AUGMENTS_DESKTOP_BASE_URL = "https://augments-desktop-production.up.railway.app"
+AUGMENTS_LLM_PROXY_URL = "https://augments-llm-proxy-production.up.railway.app"
+JWT_SECRET = "your_secure_jwt_secret_change_in_production"
+NODE_OPTIONS = "--max-old-space-size=1024"
+
+# =============================================================================
+# AUGMENTS DESKTOP SERVICE
+# =============================================================================
+[services.augments-desktop]
+source = "packages/augments-desktop"
+
+[services.augments-desktop.build.phases.install]
+cmds = [
+    "cd ../shared && pnpm install",
+    "cd ../augments-desktop && pnpm install"
+]
+
+[services.augments-desktop.build.phases.build]
+cmds = [
+    "cd ../shared && pnpm run build",
+    "cd ../augments-desktop && pnpm run build"
+]
+
+[services.augments-desktop.deploy]
+startCommand = "cd packages/augments-desktop && pnpm start"
+port = 9990
+
+[services.augments-desktop.variables]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+DISPLAY = ":0"
+
+# =============================================================================
+# AUGMENTS LLM PROXY SERVICE
+# =============================================================================
+[services.augments-llm-proxy]
+source = "packages/augments-llm-proxy"
+
+[services.augments-llm-proxy.build.phases.install]
+cmds = [
+    "cd ../shared && pnpm install",
+    "cd ../augments-llm-proxy && pnpm install"
+]
+
+[services.augments-llm-proxy.build.phases.build]
+cmds = [
+    "cd ../shared && pnpm run build",
+    "cd ../augments-llm-proxy && pnpm run build"
+]
+
+[services.augments-llm-proxy.deploy]
+startCommand = "cd packages/augments-llm-proxy && pnpm start"
+port = 4000
+
+[services.augments-llm-proxy.variables]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+OPENAI_API_KEY = "your_openai_api_key_here"
+OPENROUTER_API_KEY = "your_openrouter_api_key_here"
+ANTHROPIC_API_KEY = "your_anthropic_api_key_here"
+GEMINI_API_KEY = "your_gemini_api_key_here"
+
+# =============================================================================
+# POSTGRESQL DATABASE
+# =============================================================================
+[services.postgres]
+image = "postgres:16-alpine"
+
+[services.postgres.variables]
+POSTGRES_DB = "augmentsdb"
+POSTGRES_USER = "postgres"
+POSTGRES_PASSWORD = "secure_password_change_in_production"
+
+[services.postgres.volumes]
+data = "/var/lib/postgresql/data"
