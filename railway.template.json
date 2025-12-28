@@ -1,0 +1,62 @@
+{
+  "name": "ByteBot",
+  "description": "AI Desktop Agent with Virtual Desktop, Agent, UI, and Postgres",
+  "services": [
+    {
+      "name": "bytebot-desktop",
+      "source": {
+        "image": "ghcr.io/YOUR_USERNAME/bytebot-desktop:latest"
+      },
+      "variables": {
+        "DISPLAY": ":0"
+      },
+      "deploy": {
+        "startCommand": "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf -n",
+        "restartPolicyType": "ON_FAILURE"
+      }
+    },
+    {
+      "name": "postgres",
+      "source": {
+        "image": "postgres:16-alpine"
+      },
+      "variables": {
+        "POSTGRES_PASSWORD": "postgres",
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_DB": "bytebotdb"
+      }
+    },
+    {
+      "name": "bytebot-agent",
+      "source": {
+        "image": "ghcr.io/YOUR_USERNAME/bytebot-agent:latest"
+      },
+      "variables": {
+        "DATABASE_URL": "postgresql://postgres:postgres@postgres.railway.internal:5432/bytebotdb",
+        "BYTEBOT_DESKTOP_BASE_URL": "http://bytebot-desktop.railway.internal:9990",
+        "PORT": "9991"
+      },
+      "deploy": {
+        "startCommand": "npm run start:prod",
+        "restartPolicyType": "ON_FAILURE"
+      }
+    },
+    {
+      "name": "bytebot-ui",
+      "source": {
+        "image": "ghcr.io/YOUR_USERNAME/bytebot-ui:latest"
+      },
+      "variables": {
+        "NODE_ENV": "production",
+        "BYTEBOT_AGENT_BASE_URL": "http://bytebot-agent.railway.internal:9991",
+        "BYTEBOT_DESKTOP_VNC_URL": "http://bytebot-desktop.railway.internal:9990/websockify",
+        "PORT": "9992"
+      },
+      "deploy": {
+        "startCommand": "npm run start",
+        "restartPolicyType": "ON_FAILURE"
+      }
+    }
+  ]
+}
+
